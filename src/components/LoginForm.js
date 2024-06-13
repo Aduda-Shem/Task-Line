@@ -23,13 +23,21 @@ const LoginForm = () => {
       );
 
       if (user) {
-        const userData = { id: user.id, email: user.email, role: 'admin', name: user.name }; // Example user object
-        localStorage.setItem('user', JSON.stringify(userData));
+        const userData = { 
+          id: user.id, 
+          email: user.email, 
+          role: 'admin', 
+          name: user.name 
+        }; 
+        localStorage.setItem(
+          'user', JSON.stringify(userData)
+        );
         dispatch(setUser(userData));
         dispatch(showNotification('Logged in successfully', 'success'));
         navigate('/dashboard');
+        window.location.reload(); 
       } else {
-        message.error('Invalid email or zip code');
+        message.error('Invalid email or password');
       }
     } catch (error) {
       message.error('Login failed. Please try again.');
