@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Form, Input, Button, Typography, Row, Col, message } from 'antd';
 import { showNotification } from '../redux/actions/notificationActions';
@@ -28,6 +28,7 @@ const SignUpForm = () => {
       // Show notification and redirect
       dispatch(showNotification('Signed up successfully', 'success'));
       navigate('/dashboard');
+      window.location.reload(); // Hard reload to update navbar
     } catch (error) {
       message.error('Sign-up failed. Please try again.');
     } finally {
@@ -55,6 +56,9 @@ const SignUpForm = () => {
                 Sign Up
               </Button>
             </Form.Item>
+            <div style={{ textAlign: 'center' }}>
+              <Link to="/login">Already have an account? Login</Link>
+            </div>
           </Form>
         </div>
       </Col>

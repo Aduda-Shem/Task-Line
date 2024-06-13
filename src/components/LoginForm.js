@@ -26,8 +26,9 @@ const LoginForm = () => {
         const userData = { id: user.id, email: user.email, role: 'admin', name: user.name }; // Example user object
         localStorage.setItem('user', JSON.stringify(userData));
         dispatch(setUser(userData));
-        dispatch(showNotification('Logged in successfully', 'success'));
         navigate('/dashboard');
+        dispatch(showNotification('Logged in successfully', 'success'));
+        window.location.reload(); 
       } else {
         message.error('Invalid email or zip code');
       }
