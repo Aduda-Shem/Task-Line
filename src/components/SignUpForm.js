@@ -16,8 +16,12 @@ const SignUpForm = () => {
   const handleSignUp = (values) => {
     setLoading(true);
     try {
-      // Replace with actual sign-up logic and validation
-      const user = { id: Date.now(), email: values.email, role: 'employee', name: values.name, address: { zipcode: values.zipcode } }; // Example user object
+      const user = { 
+        id: Date.now(), 
+        email: values.email, 
+        role: 'employee', 
+        name: values.name, 
+        address: { zipcode: values.zipcode } };
 
       // Save user info to localStorage
       localStorage.setItem('user', JSON.stringify(user));
@@ -26,7 +30,10 @@ const SignUpForm = () => {
       dispatch(setUser(user));
 
       // Show notification and redirect
-      dispatch(showNotification('Signed up successfully', 'success'));
+      dispatch(
+        showNotification(
+          'Signed up successfully', 'success')
+        );
       navigate('/dashboard');
       window.location.reload(); // Hard reload to update navbar
     } catch (error) {

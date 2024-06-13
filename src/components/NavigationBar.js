@@ -12,9 +12,9 @@ const NavigationBar = () => {
             { label: <Link to="/taskboard">Task Board</Link>, key: 'taskboard' },
         ]
         : [
-            { label: <Link to="/">Home</Link>, key: 'home' },
-            { label: <Link to="/login">Login</Link>, key: 'login' },
-            { label: <Link to="/signup">Sign Up</Link>, key: 'signup' },
+            // { label: <Link to="/">Home</Link>, key: 'home' },
+            // { label: <Link to="/login">Login</Link>, key: 'login' },
+            // { label: <Link to="/signup">Sign Up</Link>, key: 'signup' },
         ];
 
     return (
