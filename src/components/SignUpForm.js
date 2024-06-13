@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Form, Input, Button, Typography, Row, Col, message } from 'antd';
 import { showNotification } from '../redux/actions/notificationActions';
@@ -16,8 +16,12 @@ const SignUpForm = () => {
   const handleSignUp = (values) => {
     setLoading(true);
     try {
-      // Replace with actual sign-up logic and validation
-      const user = { id: Date.now(), email: values.email, role: 'employee', name: values.name, address: { zipcode: values.zipcode } }; // Example user object
+      const user = { 
+        id: Date.now(), 
+        email: values.email, 
+        role: 'employee', 
+        name: values.name, 
+        address: { zipcode: values.zipcode } };
 
       // Save user info to localStorage
       localStorage.setItem('user', JSON.stringify(user));
@@ -26,8 +30,12 @@ const SignUpForm = () => {
       dispatch(setUser(user));
 
       // Show notification and redirect
-      dispatch(showNotification('Signed up successfully', 'success'));
+      dispatch(
+        showNotification(
+          'Signed up successfully', 'success')
+        );
       navigate('/dashboard');
+      window.location.reload(); // Hard reload to update navbar
     } catch (error) {
       message.error('Sign-up failed. Please try again.');
     } finally {
@@ -55,6 +63,9 @@ const SignUpForm = () => {
                 Sign Up
               </Button>
             </Form.Item>
+            <div style={{ textAlign: 'center' }}>
+              <Link to="/login">Already have an account? Login</Link>
+            </div>
           </Form>
         </div>
       </Col>
