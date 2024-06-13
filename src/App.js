@@ -15,15 +15,17 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 const AppInitializer = ({ children }) => {
   const dispatch = useDispatch();
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
   React.useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
       dispatch(setUser(user));
+      setIsAuthenticated(true);
     }
   }, [dispatch]);
 
-  return children;
+  return children({ isAuthenticated });
 };
 
 const App = () => {
@@ -31,16 +33,20 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <AppInitializer>
-          <ToastNotification />
-          <NavigationBar />
-          <Routes>
-            <Route exact path="/" element={<LandingPage />} />
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="/signup" element={<SignUpForm />} />
-            <Route path="/user_management" element={<ProtectedRoute element={UserManagement} />} />
-            <Route path="/taskboard" element={<ProtectedRoute element={TaskBoard} />} />
-            <Route path="/dashboard" element={<ProtectedRoute element={Dashboard} />} />
-          </Routes>
+          {({ isAuthenticated }) => (
+            <>
+              <ToastNotification />
+              {isAuthenticated && <NavigationBar />}
+              <Routes>
+                <Route exact path="/" element={<LandingPage />} />
+                <Route path="/login" element={<LoginForm />} />
+                <Route path="/signup" element={<SignUpForm />} />
+                <Route path="/user_management" element={<ProtectedRoute element={UserManagement} />} />
+                <Route path="/taskboard" element={<ProtectedRoute element={TaskBoard} />} />
+                <Route path="/dashboard" element={<ProtectedRoute element={Dashboard} />} />
+              </Routes>
+            </>
+          )}
         </AppInitializer>
       </Router>
     </Provider>

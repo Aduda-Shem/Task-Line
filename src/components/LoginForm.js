@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Form, Input, Button, Typography, Row, Col, message } from 'antd';
-import { showNotification } from '../redux/actions/notificationActions';
 import { setUser } from '../redux/actions/userActions';
 import { fetchUsers } from '../api/api';
+import ToastNotification from './ToastNotification';
 
-const { Title } = Typography;
+const { Title, Paragraph } = Typography;
 
 const LoginForm = () => {
   const [form] = Form.useForm();
@@ -19,7 +19,7 @@ const LoginForm = () => {
     try {
       const response = await fetchUsers();
       const user = response.data.find(
-        (user) => user.email === (values.email || 'Antonette') && user.address.zipcode === (values.zipcode || '90566-7771')
+        (user) => user.email === values.email && user.address.zipcode === values.zipcode
       );
 
       if (user) {
@@ -33,7 +33,8 @@ const LoginForm = () => {
           'user', JSON.stringify(userData)
         );
         dispatch(setUser(userData));
-        navigate('/dashboard');
+        message.success('Login successful');
+        navigate('/taskboard');
         window.location.reload(); 
       } else {
         message.error('Invalid email or password');
@@ -46,11 +47,19 @@ const LoginForm = () => {
   };
 
   return (
-    <Row justify="center" align="middle" style={{ minHeight: '100vh', backgroundColor: '#f0f2f5' }}>
+    <Row justify="center" align="middle" style={{ minHeight: '100vh', backgroundColor: '#f0f2f5', fontFamily: 'Roboto, sans-serif' }}>
       <Col xs={24} sm={16} md={12} lg={8} xl={6}>
+        <ToastNotification />
         <div style={{ padding: '40px', background: 'white', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)' }}>
-          <Title level={2} style={{ textAlign: 'center', marginBottom: '20px' }}>Login</Title>
-          <Form form={form} onFinish={handleLogin} layout="vertical" initialValues={{ email: 'Shanna@melissa.tv', zipcode: '90566-7771' }}>
+          <Title level={2} style={{ textAlign: 'center', marginBottom: '20px', fontWeight: '700' }}>Login</Title>
+          <Paragraph style={{ textAlign: 'center', marginBottom: '20px' }}>Access your account by logging in</Paragraph>
+          <Form
+            form={form}
+            onFinish={handleLogin}
+            layout="vertical"
+            initialValues={{ email: 'Shanna@melissa.tv', zipcode: '90566-7771' }}
+            style={{ backgroundColor: 'white', padding: '30px', borderRadius: '8px' }}
+          >
             <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your email!' }]}>
               <Input />
             </Form.Item>
@@ -58,7 +67,7 @@ const LoginForm = () => {
               <Input.Password />
             </Form.Item>
             <Form.Item>
-              <Button type="primary" htmlType="submit" loading={loading} block>
+              <Button type="primary" htmlType="submit" loading={loading} block style={{ fontWeight: '500' }}>
                 Login
               </Button>
             </Form.Item>

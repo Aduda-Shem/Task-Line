@@ -14,8 +14,8 @@ import {
 
 const initialState = {
   user: null,
-  users: [],
-  departments: [],
+  users: JSON.parse(localStorage.getItem('users')) || [],
+  departments: JSON.parse(localStorage.getItem('departments')) || [],
 };
 
 const userReducer = (state = initialState, action) => {
@@ -29,10 +29,12 @@ const userReducer = (state = initialState, action) => {
     case UPDATE_USER:
       return {
         ...state,
-        users: state.users.map(user => user.id === action.payload.id ? action.payload : user),
+        users: state.users.map((user) =>
+          user.id === action.payload.id ? action.payload : user
+        ),
       };
     case DELETE_USER:
-      return { ...state, users: state.users.filter(user => user.id !== action.payload) };
+      return { ...state, users: state.users.filter((user) => user.id !== action.payload) };
     case SET_DEPARTMENTS:
       return { ...state, departments: action.payload };
     case ADD_DEPARTMENT:
@@ -40,19 +42,21 @@ const userReducer = (state = initialState, action) => {
     case UPDATE_DEPARTMENT:
       return {
         ...state,
-        departments: state.departments.map(dept => dept.id === action.payload.id ? action.payload : dept),
+        departments: state.departments.map((dept) =>
+          dept.id === action.payload.id ? action.payload : dept
+        ),
       };
     case DELETE_DEPARTMENT:
-      return { ...state, departments: state.departments.filter(dept => dept.id !== action.payload) };
+      return { ...state, departments: state.departments.filter((dept) => dept.id !== action.payload) };
     case MOVE_EMPLOYEE:
       return {
         ...state,
-        users: state.users.map(user =>
+        users: state.users.map((user) =>
           user.id === action.payload.userId ? { ...user, departmentId: action.payload.departmentId } : user
         ),
       };
     case REMOVE_EMPLOYEE:
-      return { ...state, users: state.users.filter(user => user.id !== action.payload) };
+      return { ...state, users: state.users.filter((user) => user.id !== action.payload) };
     default:
       return state;
   }

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers, updateUser, deleteUser, addDepartment, moveEmployee, removeEmployee } from '../redux/actions/userActions';
-import { Typography, Button, Modal, Form, Input, Select, Table, Space, Avatar, Tag } from 'antd';
+import { Button, Modal, Form, Input, Select, Table, Space, Avatar, Tag, message } from 'antd';
 import { EditOutlined, DeleteOutlined, UserDeleteOutlined, PlusOutlined } from '@ant-design/icons';
 
-const { Title } = Typography;
 const { Option } = Select;
 
 const UserManagement = () => {
@@ -29,11 +28,13 @@ const UserManagement = () => {
 
   const handleDeleteUser = (userId) => {
     dispatch(deleteUser(userId));
+    message.success('User deleted successfully');
   };
 
   const handleOk = () => {
     form.validateFields().then((values) => {
       dispatch(updateUser({ ...selectedUser, ...values }));
+      message.success('User updated successfully');
       setIsModalVisible(false);
       form.resetFields();
     });
@@ -47,6 +48,7 @@ const UserManagement = () => {
   const handleDepartmentOk = () => {
     departmentForm.validateFields().then((values) => {
       dispatch(addDepartment({ id: Date.now(), ...values }));
+      message.success('Department added successfully');
       setIsDepartmentModalVisible(false);
       departmentForm.resetFields();
     });
@@ -59,10 +61,12 @@ const UserManagement = () => {
 
   const handleMoveEmployee = (userId, departmentId) => {
     dispatch(moveEmployee(userId, departmentId));
+    message.success('Employee moved successfully');
   };
 
   const handleRemoveEmployee = (userId) => {
     dispatch(removeEmployee(userId));
+    message.success('Employee removed successfully');
   };
 
   const columns = [
@@ -102,6 +106,7 @@ const UserManagement = () => {
         <Select
           defaultValue={departmentId || 'Move to Department'}
           onChange={(value) => handleMoveEmployee(user.id, value)}
+          style={{ width: '100%' }}
         >
           {departments.map(dept => (
             <Option key={dept.id} value={dept.id}>{dept.name}</Option>
@@ -129,17 +134,24 @@ const UserManagement = () => {
   ];
 
   return (
-    <div style={{ padding: '10px', backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
+    <div style={{ padding: '10px', backgroundColor: '#f0f2f5', minHeight: '100vh', fontFamily: 'Roboto, sans-serif' }}>
       <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
         <Button
           type="primary"
           icon={<PlusOutlined />}
           onClick={() => setIsDepartmentModalVisible(true)}
+          style={{ fontWeight: '500' }}
         >
           Add Department
         </Button>
       </div>
-      <Table columns={columns} dataSource={users} rowKey="id" pagination={{ pageSize: 10 }} />
+      <Table
+        columns={columns}
+        dataSource={users}
+        rowKey="id"
+        pagination={{ pageSize: 10 }}
+        style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}
+      />
       <Modal title="Edit User" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <Form form={form} layout="vertical">
           <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input the name!' }]}>

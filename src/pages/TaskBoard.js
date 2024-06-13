@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTasks, addTask, updateTask, deleteTask, markTaskComplete } from '../redux/actions/taskActions';
-import { Typography, Col, Row, Button, Modal, Form, Input, Select, Card, Tag, Pagination } from 'antd';
+import { Typography, Col, Row, Button, Modal, Form, Input, Select, Card, Tag, Pagination, message } from 'antd';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { EditOutlined, DeleteOutlined, CheckOutlined, PlusOutlined } from '@ant-design/icons';
 
@@ -32,18 +32,22 @@ const TaskBoard = () => {
 
   const handleDeleteTask = (taskId) => {
     dispatch(deleteTask(taskId));
+    message.success('Task deleted successfully');
   };
 
   const handleCompleteTask = (taskId) => {
     dispatch(markTaskComplete(taskId));
+    message.success('Task marked as complete');
   };
 
   const handleOk = () => {
     form.validateFields().then((values) => {
       if (selectedTask) {
         dispatch(updateTask({ ...selectedTask, ...values }));
+        message.success('Task updated successfully');
       } else {
         dispatch(addTask({ id: Date.now(), ...values }));
+        message.success('Task added successfully');
       }
       setIsModalVisible(false);
       form.resetFields();
@@ -110,17 +114,20 @@ const TaskBoard = () => {
   };
 
   return (
-    <div style={{ padding: '10px', backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
-      <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalVisible(true)}>Add Task</Button>
-</div>
+    <div style={{ padding: '10px', backgroundColor: '#f0f2f5', minHeight: '100vh', fontFamily: 'Roboto, sans-serif' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+        <Title level={2} style={{ margin: 0, fontWeight: '700' }}>Task Board</Title>
+        <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalVisible(true)}>
+          Add Task
+        </Button>
+      </div>
       <DragDropContext onDragEnd={onDragEnd}>
         <Row gutter={[16, 16]}>
           <Col span={12}>
             <Droppable droppableId="toDo">
               {(provided) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
-                  <Title level={4} style={{ textAlign: 'center', marginBottom: '20px' }}>To Do</Title>
+                  <Title level={4} style={{ textAlign: 'center', marginBottom: '20px', fontWeight: '500' }}>To Do</Title>
                   {renderTasks('To Do')}
                   {provided.placeholder}
                 </div>
@@ -131,7 +138,7 @@ const TaskBoard = () => {
             <Droppable droppableId="done">
               {(provided) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
-                  <Title level={4} style={{ textAlign: 'center', marginBottom: '20px' }}>Done</Title>
+                  <Title level={4} style={{ textAlign: 'center', marginBottom: '20px', fontWeight: '500' }}>Done</Title>
                   {renderTasks('Done')}
                   {provided.placeholder}
                 </div>
