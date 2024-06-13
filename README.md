@@ -50,4 +50,5 @@
 
 ## Sample Views
 
-![alt text](<Screenshot from 2024-06-13 23-58-45.png>) ![alt text](<Screenshot from 2024-06-13 23-58-18.png>)
+![alt text](<Screenshot from 2024-06-13 23-58-18.png>)
+![alt text](<Screenshot from 2024-06-13 23-58-45.png>)
