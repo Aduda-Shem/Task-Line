@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchTasks, addTask, updateTask, deleteTask, markTaskComplete } from '../redux/actions/taskActions';
 import { Typography, Col, Row, Button, Modal, Form, Input, Select, Card, Tag, Pagination, message } from 'antd';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { EditOutlined, DeleteOutlined, CheckOutlined, PlusOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, CheckOutlined, PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
 const { Option } = Select;
+const { confirm } = Modal;
 
 const TaskBoard = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,20 @@ const TaskBoard = () => {
   useEffect(() => {
     dispatch(fetchTasks());
   }, [dispatch]);
+
+  const showDeleteConfirm = (taskId) => {
+    confirm({
+      title: 'Are you sure delete this task?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'Once deleted, the task cannot be recovered',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        handleDeleteTask(taskId);
+      },
+    });
+  };
 
   const handleEditTask = (task) => {
     setSelectedTask(task);
@@ -99,7 +114,7 @@ const TaskBoard = () => {
             }}
             actions={[
               <EditOutlined onClick={() => handleEditTask(task)} />,
-              <DeleteOutlined onClick={() => handleDeleteTask(task.id)} />,
+              <DeleteOutlined onClick={() => showDeleteConfirm(task.id)} />,
               !task.completed && <CheckOutlined onClick={() => handleCompleteTask(task.id)} />,
             ]}
           >
@@ -114,7 +129,7 @@ const TaskBoard = () => {
   };
 
   return (
-    <div style={{ padding: '10px', backgroundColor: '#f0f2f5', minHeight: '100vh', fontFamily: 'Roboto, sans-serif' }}>
+    <div style={{ padding: '20px', backgroundColor: '#f0f2f5', minHeight: '100vh', fontFamily: 'Roboto, sans-serif' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
         <Title level={2} style={{ margin: 0, fontWeight: '700' }}>Task Board</Title>
         <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalVisible(true)}>

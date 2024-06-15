@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUsers, updateUser, deleteUser, addDepartment, moveEmployee, removeEmployee } from '../redux/actions/userActions';
-import { Button, Modal, Form, Input, Select, Table, Space, Avatar, Tag, message } from 'antd';
+import { fetchUsers, updateUser, deleteUser, addUser, addDepartment, moveEmployee, removeEmployee } from '../redux/actions/userActions';
+import { Button, Modal, Form, Input, Select, Table, Space, Avatar, Tag, message, Drawer } from 'antd';
 import { EditOutlined, DeleteOutlined, UserDeleteOutlined, PlusOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
@@ -12,9 +12,11 @@ const UserManagement = () => {
   const departments = useSelector(state => state.users.departments);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDepartmentModalVisible, setIsDepartmentModalVisible] = useState(false);
+  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [form] = Form.useForm();
   const [departmentForm] = Form.useForm();
+  const [drawerForm] = Form.useForm();
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -57,6 +59,20 @@ const UserManagement = () => {
   const handleDepartmentCancel = () => {
     setIsDepartmentModalVisible(false);
     departmentForm.resetFields();
+  };
+
+  const handleDrawerOk = () => {
+    drawerForm.validateFields().then((values) => {
+      dispatch(addUser({ id: Date.now(), ...values }));
+      message.success('User added successfully');
+      setIsDrawerVisible(false);
+      drawerForm.resetFields();
+    });
+  };
+
+  const handleDrawerCancel = () => {
+    setIsDrawerVisible(false);
+    drawerForm.resetFields();
   };
 
   const handleMoveEmployee = (userId, departmentId) => {
@@ -139,6 +155,14 @@ const UserManagement = () => {
         <Button
           type="primary"
           icon={<PlusOutlined />}
+          onClick={() => setIsDrawerVisible(true)}
+          style={{ fontWeight: '500', marginRight: '10px' }}
+        >
+          Add User
+        </Button>
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
           onClick={() => setIsDepartmentModalVisible(true)}
           style={{ fontWeight: '500' }}
         >
@@ -175,6 +199,48 @@ const UserManagement = () => {
           </Form.Item>
         </Form>
       </Modal>
+      <Drawer
+        title="Add User"
+        width={400}
+        onClose={handleDrawerCancel}
+        visible={isDrawerVisible}
+        bodyStyle={{ paddingBottom: 80 }}
+        footer={
+          <div
+            style={{
+              textAlign: 'right',
+            }}
+          >
+            <Button onClick={handleDrawerCancel} style={{ marginRight: 8 }}>
+              Cancel
+            </Button>
+            <Button onClick={handleDrawerOk} type="primary">
+              Submit
+            </Button>
+          </div>
+        }
+      >
+        <Form form={drawerForm} layout="vertical">
+          <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input the name!' }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input the email!' }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item label="Username" name="username" rules={[{ required: true, message: 'Please input the username!' }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item label="Address" name="address" rules={[{ required: true, message: 'Please input the address!' }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item label="Role" name="role" rules={[{ required: true, message: 'Please select the role!' }]}>
+            <Select>
+              <Option value="employee">Employee</Option>
+              <Option value="manager">Manager</Option>
+            </Select>
+          </Form.Item>
+        </Form>
+      </Drawer>
     </div>
   );
 };
