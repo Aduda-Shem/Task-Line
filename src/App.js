@@ -14,13 +14,16 @@ import ToastNotification from './components/ToastNotification';
 import NavigationBar from './components/NavigationBar';
 import ProtectedRoute from './components/ProtectedRoute';
 import { useAuth } from './hooks/useAuth';
+import { useLocation } from 'react-router-dom';
 
 const AppContent = () => {
   const { isAuthenticated } = useAuth();
+  const location = useLocation();
 
   return (
     <>
       <ToastNotification />
+      {isAuthenticated && location.pathname !== '/' && <NavigationBar />}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginForm />} />
@@ -31,7 +34,6 @@ const AppContent = () => {
         {/* Redirect any unknown routes to home */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-      {isAuthenticated && window.location.pathname !== '/' && <NavigationBar />}
     </>
   );
 };
