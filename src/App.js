@@ -1,5 +1,7 @@
+// App.js
+
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store/store';
 import LandingPage from './components/landing/LandingPage';
@@ -19,7 +21,6 @@ const AppContent = () => {
   return (
     <>
       <ToastNotification />
-      {isAuthenticated && <NavigationBar />}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginForm />} />
@@ -27,7 +28,10 @@ const AppContent = () => {
         <Route path="/user_management" element={<ProtectedRoute element={UserManagement} />} />
         <Route path="/taskboard" element={<ProtectedRoute element={TaskBoard} />} />
         <Route path="/dashboard" element={<ProtectedRoute element={Dashboard} />} />
+        {/* Redirect any unknown routes to home */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
+      {isAuthenticated && window.location.pathname !== '/' && <NavigationBar />}
     </>
   );
 };
