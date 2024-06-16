@@ -50,6 +50,9 @@
 
 ## Sample Views
 
-![alt text](<Screenshot from 2024-06-16 11-46-20.png>) !
-[alt text](<Screenshot from 2024-06-16 11-46-12.png>) ![alt text](<Screenshot from 2024-06-16 11-45-57.png>) ![alt text](<Screenshot from 2024-06-16 11-45-49.png>) ![alt text](<Screenshot from 2024-06-16 11-45-32.png>)
+![alt text](<Screenshot from 2024-06-16 11-46-20.png>) 
+![alt text](<Screenshot from 2024-06-16 11-46-12.png>) 
+![alt text](<Screenshot from 2024-06-16 11-45-57.png>) 
+![alt text](<Screenshot from 2024-06-16 11-45-49.png>) 
+![alt text](<Screenshot from 2024-06-16 11-45-32.png>)
 
