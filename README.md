@@ -48,7 +48,5 @@
 
 - Data is saved to localStorage to ensure it persists across page reloads.
 
-## Sample Views
-
-![alt text](<Screenshot from 2024-06-13 23-58-18.png>)
-![alt text](<Screenshot from 2024-06-13 23-58-45.png>)
+## Sample Pages
+[alt text](<Screenshot from 2024-06-16 11-46-20.png>) ![alt text](<Screenshot from 2024-06-16 11-46-12.png>) ![alt text](<Screenshot from 2024-06-16 11-45-57.png>) ![alt text](<Screenshot from 2024-06-16 11-45-49.png>) ![alt text](<Screenshot from 2024-06-16 11-45-32.png>)
