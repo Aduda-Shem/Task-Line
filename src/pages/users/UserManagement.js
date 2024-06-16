@@ -63,12 +63,22 @@ const UserManagement = () => {
 
   return (
     <div style={{ padding: '10px', backgroundColor: '#f0f2f5', minHeight: '100vh', fontFamily: 'Roboto, sans-serif' }}>
-        <Breadcrumb title="Home" breadcrumbItem="User Management" link="/dashboard" />
-        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
-        <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsDrawerVisible(true)} style={{ fontWeight: '500', marginRight: '10px' }}>
+      <Breadcrumb title="Home" breadcrumbItem="User Management" link="/dashboard" />
+      <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', marginBottom: '20px' }}>
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={() => setIsDrawerVisible(true)}
+          style={{ fontWeight: '500', marginBottom: '10px' }}
+        >
           Add User
         </Button>
-        <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsDepartmentModalVisible(true)} style={{ fontWeight: '500' }}>
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={() => setIsDepartmentModalVisible(true)}
+          style={{ fontWeight: '500', marginBottom: '10px' }}
+        >
           Add Department
         </Button>
       </div>

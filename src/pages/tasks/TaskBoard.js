@@ -29,10 +29,10 @@ const TaskBoard = () => {
   };
 
   return (
-    <div style={{ padding: '20px', backgroundColor: '#f0f2f5', minHeight: '100vh' }}>
+    <div className="task-board-container">
       <BreadcrumbComponent title="Home" breadcrumbItem="Tasks" link="/dashboard" />
       <Row gutter={[16, 16]}>
-        <Col span={4}>
+        <Col xs={24} sm={24} md={6}>
           <TaskStats
             totalTasks={totalTasks}
             completedTasks={completedTasks}
@@ -41,7 +41,7 @@ const TaskBoard = () => {
             activeStat={activeStat}
           />
         </Col>
-        <Col span={20}>
+        <Col xs={24} sm={24} md={18}>
           <Row justify="space-between" align="middle" style={{ marginBottom: '16px' }}>
             <Col>
               <Button

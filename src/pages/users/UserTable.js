@@ -12,6 +12,7 @@ const UserTable = ({ users, departments, onEditUser, onDeleteUser, onMoveEmploye
       dataIndex: 'email',
       key: 'avatar',
       render: (email) => <Avatar src={`https://i.pravatar.cc/150?u=${email}`} />,
+      responsive: ['sm'],
     },
     {
       title: 'Name',
@@ -23,17 +24,20 @@ const UserTable = ({ users, departments, onEditUser, onDeleteUser, onMoveEmploye
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
+      responsive: ['md'],
     },
     {
       title: 'Username',
       dataIndex: 'username',
       key: 'username',
+      responsive: ['md'],
     },
     {
       title: 'Address',
       dataIndex: 'address',
       key: 'address',
       render: (address) => `${address.street}, ${address.city}`,
+      responsive: ['lg'],
     },
     {
       title: 'Department',
@@ -52,6 +56,7 @@ const UserTable = ({ users, departments, onEditUser, onDeleteUser, onMoveEmploye
           ))}
         </Select>
       ),
+      responsive: ['sm'],
     },
     {
       title: 'Role',
@@ -62,6 +67,7 @@ const UserTable = ({ users, departments, onEditUser, onDeleteUser, onMoveEmploye
           {role ? role.toUpperCase() : ''}
         </Tag>
       ),
+      responsive: ['sm'],
     },
     {
       title: 'Actions',
@@ -73,6 +79,7 @@ const UserTable = ({ users, departments, onEditUser, onDeleteUser, onMoveEmploye
           <DeletePopup onConfirm={() => onDeleteUser(user.id)} />
         </Space>
       ),
+      responsive: ['sm'],
     },
   ];
 
@@ -83,6 +90,7 @@ const UserTable = ({ users, departments, onEditUser, onDeleteUser, onMoveEmploye
       rowKey="id"
       pagination={{ pageSize: 10 }}
       style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}
+      className="user-table"
     />
   );
 };
