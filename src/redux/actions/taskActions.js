@@ -1,3 +1,5 @@
+// actions/taskActions.js
+
 import {
   SET_TASKS,
   ADD_TASK,
@@ -9,12 +11,40 @@ import {
 import { fetchTasks as fetchTasksAPI, sendEmail } from '../../api/api';
 import { showNotification } from './notificationActions';
 
-export const setTasks = tasks => ({ type: SET_TASKS, payload: tasks });
-export const addTask = task => ({ type: ADD_TASK, payload: task });
-export const updateTask = task => ({ type: UPDATE_TASK, payload: task });
-export const deleteTask = taskId => ({ type: DELETE_TASK, payload: taskId });
-export const updateTaskOrder = tasks => ({ type: UPDATE_TASK_ORDER, payload: tasks });
-export const markTaskComplete = (taskId) => ({ type: MARK_TASK_COMPLETE, payload: taskId });
+const saveToLocalStorage = (tasks) => {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+};
+
+export const setTasks = (tasks) => {
+  saveToLocalStorage(tasks);
+  return { type: SET_TASKS, payload: tasks };
+};
+
+export const addTask = (task) => (dispatch, getState) => {
+  dispatch({ type: ADD_TASK, payload: task });
+  saveToLocalStorage(getState().tasks.tasks);
+};
+
+export const updateTask = (task) => (dispatch, getState
+) => {
+  dispatch({ type: UPDATE_TASK, payload: task });
+  saveToLocalStorage(getState().tasks.tasks);
+};
+
+export const deleteTask = (taskId) => (dispatch, getState) => {
+  dispatch({ type: DELETE_TASK, payload: taskId });
+  saveToLocalStorage(getState().tasks.tasks);
+};
+
+export const updateTaskOrder = (tasks) => (dispatch, getState) => {
+  dispatch({ type: UPDATE_TASK_ORDER, payload: tasks });
+  saveToLocalStorage(getState().tasks.tasks);
+};
+
+export const markTaskComplete = (taskId) => (dispatch, getState) => {
+  dispatch({ type: MARK_TASK_COMPLETE, payload: taskId });
+  saveToLocalStorage(getState().tasks.tasks);
+};
 
 export const fetchTasks = () => async dispatch => {
   try {
@@ -45,7 +75,7 @@ export const modifyTask = (task) => async dispatch => {
     dispatch(updateTask(task));
     dispatch(showNotification('Task updated successfully', 'success'));
   } catch (error) {
-    dispatch.showNotification('Failed to update task', 'error');
+    dispatch(showNotification('Failed to update task', 'error'));
   }
 };
 
