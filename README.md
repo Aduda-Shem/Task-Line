@@ -24,8 +24,8 @@
 
 ### User Authentication
 
-1. **Sign Up**: Create a new account by providing your name, email, and zip code.
-2. **Login**: Access your account using your email and zip code.
+1. **Sign Up**: Create a new account by providing your name, email, and password.
+2. **Login**: Access your account using your email and password.
 
 ### Role Management
 
@@ -42,7 +42,6 @@
 - **Update Task**: Edit existing tasks.
 - **Delete Task**: Remove tasks.
 - **Complete Task**: Mark tasks as completed.
-- **Drag-and-Drop**: Reorder tasks using drag-and-drop functionality.
 
 ### Persistent Data
 
