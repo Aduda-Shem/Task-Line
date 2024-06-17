@@ -1,5 +1,3 @@
-// reducers/taskReducer.js
-
 import {
   SET_TASKS,
   ADD_TASK,
@@ -10,7 +8,7 @@ import {
 } from '../actionTypes/taskActionTypes';
 
 const initialState = {
-  tasks: JSON.parse(localStorage.getItem('tasks')) || [],
+  tasks: [],
 };
 
 const taskReducer = (state = initialState, action) => {
@@ -22,7 +20,9 @@ const taskReducer = (state = initialState, action) => {
     case UPDATE_TASK:
       return {
         ...state,
-        tasks: state.tasks.map(task => task.id === action.payload.id ? action.payload : task),
+        tasks: state.tasks.map(task =>
+          task.id === action.payload.id ? { ...task, ...action.payload } : task
+        ),
       };
     case DELETE_TASK:
       return { ...state, tasks: state.tasks.filter(task => task.id !== action.payload) };

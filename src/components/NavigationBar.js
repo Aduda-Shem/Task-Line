@@ -10,7 +10,7 @@ const NavigationBar = () => {
   const handleLogout = () => {
     localStorage.removeItem('user');
     navigate('/login');
-    window.location.reload(); // Hard reload to update navbar
+    window.location.reload();
   };
 
   const items = isAuthenticated

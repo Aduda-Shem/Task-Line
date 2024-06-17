@@ -1,5 +1,4 @@
 // redux/reducers/userReducer.js
-
 import {
   SET_USER,
   SET_USERS,
@@ -10,14 +9,13 @@ import {
   ADD_DEPARTMENT,
   UPDATE_DEPARTMENT,
   DELETE_DEPARTMENT,
-  MOVE_EMPLOYEE,
   REMOVE_EMPLOYEE,
 } from '../actionTypes/userActionTypes';
 
 const initialState = {
   user: null,
-  users: JSON.parse(localStorage.getItem('users')) || [],
-  departments: JSON.parse(localStorage.getItem('departments')) || [],
+  users: [],
+  departments: [],
 };
 
 const userReducer = (state = initialState, action) => {
@@ -32,7 +30,7 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         users: state.users.map((user) =>
-          user.id === action.payload.id ? action.payload : user
+          user.id === action.payload.id ? { ...user, ...action.payload } : user
         ),
       };
     case DELETE_USER:
@@ -50,13 +48,6 @@ const userReducer = (state = initialState, action) => {
       };
     case DELETE_DEPARTMENT:
       return { ...state, departments: state.departments.filter((dept) => dept.id !== action.payload) };
-    case MOVE_EMPLOYEE:
-      return {
-        ...state,
-        users: state.users.map((user) =>
-          user.id === action.payload.userId ? { ...user, departmentId: action.payload.departmentId } : user
-        ),
-      };
     case REMOVE_EMPLOYEE:
       return { ...state, users: state.users.filter((user) => user.id !== action.payload) };
     default:

@@ -1,5 +1,4 @@
 // redux/actions/userActions.js
-
 import {
   SET_USER,
   SET_USERS,
@@ -10,91 +9,136 @@ import {
   ADD_DEPARTMENT,
   UPDATE_DEPARTMENT,
   DELETE_DEPARTMENT,
-  MOVE_EMPLOYEE,
   REMOVE_EMPLOYEE,
 } from '../actionTypes/userActionTypes';
 import { fetchUsers as fetchUsersAPI } from '../../api/api';
 import { showNotification } from './notificationActions';
-
-const persistData = (key, data) => {
-  localStorage.setItem(key, JSON.stringify(data));
-};
+import {
+  getUsersFromDB,
+  addUserToDB,
+  updateUserInDB,
+  deleteUserFromDB,
+} from '../../utils/userDB';
+import {
+  getDepartmentsFromDB,
+  addDepartmentToDB,
+  updateDepartmentInDB,
+  deleteDepartmentFromDB,
+} from '../../utils/departmentDB';
 
 export const setUser = (user) => ({ type: SET_USER, payload: user });
 
-export const setUsers = (users) => {
-  persistData('users', users);
-  return { type: SET_USERS, payload: users };
-};
-
-export const addUser = (user) => {
-  const users = JSON.parse(localStorage.getItem('users')) || [];
-  const updatedUsers = [...users, user];
-  persistData('users', updatedUsers);
-  return { type: ADD_USER, payload: user };
-};
-
-export const updateUser = (user) => {
-  const users = JSON.parse(localStorage.getItem('users')) || [];
-  const updatedUsers = users.map((u) => (u.id === user.id ? user : u));
-  persistData('users', updatedUsers);
-  return { type: UPDATE_USER, payload: user };
-};
-
-export const deleteUser = (userId) => {
-  const users = JSON.parse(localStorage.getItem('users')) || [];
-  const updatedUsers = users.filter((user) => user.id !== userId);
-  persistData('users', updatedUsers);
-  return { type: DELETE_USER, payload: userId };
-};
-
-export const setDepartments = (departments) => {
-  persistData('departments', departments);
-  return { type: SET_DEPARTMENTS, payload: departments };
-};
-
-export const addDepartment = (department) => {
-  const departments = JSON.parse(localStorage.getItem('departments')) || [];
-  const updatedDepartments = [...departments, department];
-  persistData('departments', updatedDepartments);
-  return { type: ADD_DEPARTMENT, payload: department };
-};
-
-export const updateDepartment = (department) => {
-  const departments = JSON.parse(localStorage.getItem('departments')) || [];
-  const updatedDepartments = departments.map((d) => (d.id === department.id ? department : d));
-  persistData('departments', updatedDepartments);
-  return { type: UPDATE_DEPARTMENT, payload: department };
-};
-
-export const deleteDepartment = (departmentId) => {
-  const departments = JSON.parse(localStorage.getItem('departments')) || [];
-  const updatedDepartments = departments.filter((department) => department.id !== departmentId);
-  persistData('departments', updatedDepartments);
-  return { type: DELETE_DEPARTMENT, payload: departmentId };
-};
-
-export const moveEmployee = (userId, departmentId) => {
-  const users = JSON.parse(localStorage.getItem('users')) || [];
-  const updatedUsers = users.map((user) =>
-    user.id === userId ? { ...user, departmentId } : user
-  );
-  persistData('users', updatedUsers);
-  return { type: MOVE_EMPLOYEE, payload: { userId, departmentId } };
-};
-
-export const removeEmployee = (userId) => {
-  const users = JSON.parse(localStorage.getItem('users')) || [];
-  const updatedUsers = users.filter((user) => user.id !== userId);
-  persistData('users', updatedUsers);
-  return { type: REMOVE_EMPLOYEE, payload: userId };
-};
+export const setUsers = (users) => ({
+  type: SET_USERS, payload: users,
+});
 
 export const fetchUsers = () => async (dispatch) => {
   try {
-    const response = await fetchUsersAPI();
-    dispatch(setUsers(response.data));
+    const users = await getUsersFromDB();
+    if (users.length > 0) {
+      dispatch(setUsers(users));
+    } else {
+      const response = await fetchUsersAPI();
+      const users = response.data;
+      for (const user of users) {
+        await addUserToDB(user);
+      }
+      dispatch(setUsers(users));
+    }
   } catch (error) {
     dispatch(showNotification('Failed to fetch users', 'error'));
+    console.error('Error fetching users:', error);
+  }
+};
+
+export const addUser = (user) => async (dispatch, getState) => {
+  try {
+    await addUserToDB(user);
+    dispatch({ type: ADD_USER, payload: user });
+  } catch (error) {
+    console.error('Error adding user:', error);
+  }
+};
+
+export const updateUser = (user) => async (dispatch, getState) => {
+  try {
+    await updateUserInDB(user);
+    dispatch({ type: UPDATE_USER, payload: user });
+  } catch (error) {
+    console.error('Error updating user:', error);
+  }
+};
+
+export const deleteUser = (userId) => async (dispatch, getState) => {
+  try {
+    await deleteUserFromDB(userId);
+    dispatch({ type: DELETE_USER, payload: userId });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+  }
+};
+
+export const setDepartments = (departments) => ({
+  type: SET_DEPARTMENTS, payload: departments,
+});
+
+export const fetchDepartments = () => async (dispatch) => {
+  try {
+    const departments = await getDepartmentsFromDB();
+    dispatch(setDepartments(departments));
+  } catch (error) {
+    dispatch(showNotification('Failed to fetch departments', 'error'));
+    console.error('Error fetching departments:', error);
+  }
+};
+
+export const addDepartment = (department) => async (dispatch, getState) => {
+  try {
+    await addDepartmentToDB(department);
+    dispatch({ type: ADD_DEPARTMENT, payload: department });
+  } catch (error) {
+    console.error('Error adding department:', error);
+  }
+};
+
+export const updateDepartment = (department) => async (dispatch, getState) => {
+  try {
+    await updateDepartmentInDB(department);
+    dispatch({ type: UPDATE_DEPARTMENT, payload: department });
+  } catch (error) {
+    console.error('Error updating department:', error);
+  }
+};
+
+export const deleteDepartment = (departmentId) => async (dispatch, getState) => {
+  try {
+    await deleteDepartmentFromDB(departmentId);
+    dispatch({ type: DELETE_DEPARTMENT, payload: departmentId });
+  } catch (error) {
+    console.error('Error deleting department:', error);
+  }
+};
+
+export const moveEmployee = (userId, departmentId) => async (dispatch, getState) => {
+  try {
+    const users = await getUsersFromDB();
+    const user = users.find(user => user.id === userId);
+    if (user) {
+      const updatedUser = { ...user, departmentId };
+      await updateUserInDB(updatedUser);
+      dispatch(updateUser(updatedUser));
+      dispatch(setUsers(users.map(u => u.id === userId ? updatedUser : u)));
+    }
+  } catch (error) {
+    console.error('Error moving employee:', error);
+  }
+};
+
+export const removeEmployee = (userId) => async (dispatch, getState) => {
+  try {
+    await deleteUserFromDB(userId);
+    dispatch({ type: REMOVE_EMPLOYEE, payload: userId });
+  } catch (error) {
+    console.error('Error removing employee:', error);
   }
 };

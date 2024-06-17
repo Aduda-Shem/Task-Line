@@ -3,8 +3,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Form, Input, Button, Typography, Row, Col, message } from 'antd';
 import { setUser } from '../redux/actions/userActions';
-import { fetchUsers } from '../api/api';
+import { fetchUsers as fetchUsersAPI } from '../api/api';
 import ToastNotification from './ToastNotification';
+import { getUsersFromDB, addUserToDB } from '../utils/userDB';
 
 const { Title, Paragraph } = Typography;
 
@@ -17,8 +18,17 @@ const LoginForm = () => {
   const handleLogin = async (values) => {
     setLoading(true);
     try {
-      const response = await fetchUsers();
-      const user = response.data.find(
+      let users = await getUsersFromDB();
+
+      if (users.length === 0) {
+        const response = await fetchUsersAPI();
+        users = response.data;
+        for (const user of users) {
+          await addUserToDB(user);
+        }
+      }
+
+      const user = users.find(
         (user) => user.email === values.email && user.address.zipcode === values.zipcode
       );
 
@@ -28,19 +38,18 @@ const LoginForm = () => {
           email: user.email, 
           role: 'admin', 
           name: user.name 
-        }; 
-        localStorage.setItem(
-          'user', JSON.stringify(userData)
-        );
+        };
+        localStorage.setItem('user', JSON.stringify(userData));
         dispatch(setUser(userData));
         message.success('Login successful');
-        navigate('/taskboard');
+        navigate('/dashboard');
         window.location.reload(); 
       } else {
         message.error('Invalid email or password');
       }
     } catch (error) {
       message.error('Login failed. Please try again.');
+      console.error('Login error:', error);
     } finally {
       setLoading(false);
     }

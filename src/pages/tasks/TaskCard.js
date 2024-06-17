@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Tag, Col } from 'antd';
-import { EditOutlined, DeleteOutlined, CheckOutlined } from '@ant-design/icons';
+import { EditOutlined, CheckOutlined } from '@ant-design/icons';
 import DeletePopup from '../DeletePopup';
 
 const TaskCard = ({ task, users, handleEditTask, handleDeleteTask, handleCompleteTask }) => {

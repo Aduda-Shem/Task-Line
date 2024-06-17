@@ -36,7 +36,7 @@ const UserTable = ({ users, departments, onEditUser, onDeleteUser, onMoveEmploye
       title: 'Address',
       dataIndex: 'address',
       key: 'address',
-      render: (address) => `${address.street}, ${address.city}`,
+      render: (address) => `${address?.street}, ${address?.city}`,
       responsive: ['lg'],
     },
     {
@@ -49,7 +49,7 @@ const UserTable = ({ users, departments, onEditUser, onDeleteUser, onMoveEmploye
           onChange={(value) => onMoveEmployee(user.id, value)}
           style={{ width: '100%' }}
         >
-          {departments.map((dept) => (
+          {departments && departments.map((dept) => (
             <Option key={dept.id} value={dept.id}>
               {dept.name}
             </Option>
@@ -86,7 +86,7 @@ const UserTable = ({ users, departments, onEditUser, onDeleteUser, onMoveEmploye
   return (
     <Table
       columns={columns}
-      dataSource={users}
+      dataSource={users || []} 
       rowKey="id"
       pagination={{ pageSize: 10 }}
       style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}

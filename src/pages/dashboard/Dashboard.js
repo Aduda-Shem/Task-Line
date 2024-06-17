@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col } from 'antd';
+import { fetchUsers, fetchDepartments } from '../../redux/actions/userActions';
+import { fetchTasks } from '../../redux/actions/taskActions';
 import {
   TotalTasksCard,
   CompletedTasksCard,
@@ -14,14 +16,25 @@ import TaskFilter from './TaskFilter';
 import BreadcrumbComponent from '../BreadCrumb';
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
   const tasks = useSelector(state => state.tasks.tasks);
   const users = useSelector(state => state.users.users);
   const departments = useSelector(state => state.users.departments);
 
-  const [filteredTasks, setFilteredTasks] = useState(tasks);
+  const [filteredTasks, setFilteredTasks] = useState(tasks || []);
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+    dispatch(fetchDepartments());
+    dispatch(fetchTasks());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setFilteredTasks(tasks);
+  }, [tasks]);
 
   const handleFilterChange = (type, value) => {
-    let filtered = tasks;
+    let filtered = tasks || [];
 
     if (type === 'department' && value) {
       filtered = filtered.filter(task => task.departmentId === value);
@@ -36,6 +49,10 @@ const Dashboard = () => {
     setFilteredTasks(filtered);
   };
 
+  if (!tasks || !users || !departments) {
+    return <div>Loading...</div>;
+  }
+
   const completedTasks = filteredTasks.filter(task => task.completed);
   const pendingTasks = filteredTasks.filter(task => !task.completed);
 
@@ -45,7 +62,8 @@ const Dashboard = () => {
   ];
 
   const departmentTaskData = departments.map(dept => {
-    const deptTasks = filteredTasks.filter(task => task.userId === dept.id);
+    const deptUsers = users.filter(user => user.departmentId === dept.id);
+    const deptTasks = filteredTasks.filter(task => deptUsers.some(user => user.id === task.userId));
     return {
       name: dept.name,
       total: deptTasks.length,
@@ -108,7 +126,6 @@ const Dashboard = () => {
           <DepartmentsTable data={departmentTaskData} columns={columns} />
         </Col>
       </Row>
-
     </div>
   );
 };

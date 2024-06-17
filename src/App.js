@@ -1,9 +1,5 @@
-// App.js
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from './redux/store/store';
 import LandingPage from './components/landing/LandingPage';
 import LoginForm from './components/LoginForm';
 import SignUpForm from './components/SignUpForm';
@@ -40,11 +36,9 @@ const AppContent = () => {
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <Router>
-        <AppContent />
-      </Router>
-    </Provider>
+    <Router>
+      <AppContent />
+    </Router>
   );
 };
 

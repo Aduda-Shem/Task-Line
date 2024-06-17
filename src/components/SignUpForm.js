@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Form, Input, Button, Typography, Row, Col, message } from 'antd';
 import { showNotification } from '../redux/actions/notificationActions';
 import { setUser } from '../redux/actions/userActions';
+import { addUserToDB } from '../utils/userDB';
 
 const { Title } = Typography;
 
@@ -13,7 +14,7 @@ const SignUpForm = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
-  const handleSignUp = (values) => {
+  const handleSignUp = async (values) => {
     setLoading(true);
     try {
       const user = { 
@@ -21,23 +22,22 @@ const SignUpForm = () => {
         email: values.email, 
         role: 'employee', 
         name: values.name, 
-        address: { zipcode: values.zipcode } };
+        address: { zipcode: values.zipcode } 
+      };
 
-      // Save user info to localStorage
-      localStorage.setItem('user', JSON.stringify(user));
+      // Save user info to IndexedDB
+      await addUserToDB(user);
 
       // Dispatch action to set user in Redux store
       dispatch(setUser(user));
 
       // Show notification and redirect
-      dispatch(
-        showNotification(
-          'Signed up successfully', 'success')
-        );
+      dispatch(showNotification('Signed up successfully', 'success'));
       navigate('/dashboard');
-      window.location.reload(); // Hard reload to update navbar
+      window.location.reload();
     } catch (error) {
       message.error('Sign-up failed. Please try again.');
+      console.error('Sign-up error:', error);
     } finally {
       setLoading(false);
     }

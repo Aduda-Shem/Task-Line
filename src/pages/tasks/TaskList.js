@@ -1,10 +1,8 @@
-// components/TaskList.js
-
 import React, { useState, useEffect } from 'react';
 import { Card, Row, Button, message, Form, Col } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTask, deleteTask, markTaskComplete, updateTask, setTasks, fetchTasks } from '../../redux/actions/taskActions';
+import { addTask, deleteTask, markTaskComplete, updateTask, fetchTasks, scheduleTask } from '../../redux/actions/taskActions';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import TaskCard from './TaskCard';
 import TaskModal from './TaskModal';
@@ -20,17 +18,8 @@ const TaskList = ({ view, filter }) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    const storedTasks = JSON.parse(localStorage.getItem('tasks'));
-    if (storedTasks) {
-      dispatch(setTasks(storedTasks));
-    } else {
-      dispatch(fetchTasks());
-    }
+    dispatch(fetchTasks());
   }, [dispatch]);
-
-  useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-  }, [tasks]);
 
   const handleEditTask = (task) => {
     setSelectedTask(task);
@@ -52,13 +41,22 @@ const TaskList = ({ view, filter }) => {
     form.validateFields().then((values) => {
       if (selectedTask) {
         dispatch(updateTask({ ...selectedTask, ...values }));
+        if (values.recurring !== 'none') {
+          dispatch(scheduleTask(values));
+        }
         message.success('Task updated successfully');
       } else {
         dispatch(addTask({ id: Date.now(), ...values }));
+        if (values.recurring !== 'none') {
+          dispatch(scheduleTask(values));
+        }
         message.success('Task added successfully');
       }
       setIsModalVisible(false);
       form.resetFields();
+    }).catch(error => {
+      message.error('Failed to submit form');
+      console.error(error);
     });
   };
 
