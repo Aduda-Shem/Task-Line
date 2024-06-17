@@ -1,5 +1,3 @@
-// components/Footer.js
-
 import React from 'react';
 import { Row, Col, Typography } from 'antd';
 

@@ -5,7 +5,8 @@ import { useAuth } from '../hooks/useAuth';
 const ProtectedRoute = ({ element: Component }) => {
   const { isAuthenticated } = useAuth();
 
-  return isAuthenticated ? <Component /> : <Navigate to="/" />;
+  return isAuthenticated ?
+   <Component /> : <Navigate to="/" />;
 };
 
 export default ProtectedRoute;

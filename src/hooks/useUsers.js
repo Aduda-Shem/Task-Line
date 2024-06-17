@@ -1,5 +1,3 @@
-// hooks/useUsers.js
-
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers, addUser, updateUser, deleteUser, addDepartment, moveEmployee, removeEmployee } from '../redux/actions/userActions';

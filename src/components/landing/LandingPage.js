@@ -1,5 +1,3 @@
-// pages/LandingPage.js
-
 import React from 'react';
 import { Layout } from 'antd';
 import HeaderComponent from './Header';

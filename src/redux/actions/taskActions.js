@@ -24,7 +24,8 @@ export const setTasks = (tasks) => ({
 export const addTask = (task) => async (dispatch, getState) => {
   try {
     await addTaskToDB(task);
-    dispatch({ type: ADD_TASK, payload: task });
+    dispatch({ 
+      type: ADD_TASK, payload: task });
   } catch (error) {
     console.error('Error adding task:', error);
   }
@@ -35,7 +36,6 @@ export const updateTask = (task) => async (dispatch, getState) => {
     await updateTaskInDB(task);
     dispatch({ type: UPDATE_TASK, payload: task });
   } catch (error) {
-    console.error('Error updating task:', error);
   }
 };
 
@@ -44,7 +44,6 @@ export const deleteTask = (taskId) => async (dispatch, getState) => {
     await deleteTaskFromDB(taskId);
     dispatch({ type: DELETE_TASK, payload: taskId });
   } catch (error) {
-    console.error('Error deleting task:', error);
   }
 };
 
@@ -59,7 +58,6 @@ export const markTaskComplete = (taskId) => async (dispatch, getState) => {
     await updateTaskInDB(updatedTask);
     dispatch({ type: MARK_TASK_COMPLETE, payload: taskId });
   } catch (error) {
-    console.error('Error marking task complete:', error);
   }
 };
 
@@ -78,7 +76,6 @@ export const fetchTasks = () => async (dispatch) => {
     }
   } catch (error) {
     dispatch(showNotification('Failed to fetch tasks', 'error'));
-    console.error('Error fetching tasks:', error);
   }
 };
 
@@ -119,6 +116,7 @@ export const removeTask = (taskId) => async (dispatch, getState) => {
 };
 
 const getIntervalMilliseconds = (recurringType) => {
+  // switch case to determine the recurrent time depending on user selection
   switch (recurringType) {
     case 'daily':
       return 24 * 60 * 60 * 1000;
@@ -156,6 +154,5 @@ export const scheduleTask = (task) => async (dispatch, getState) => {
     dispatch(showNotification('Task scheduled successfully', 'success'));
   } catch (error) {
     dispatch(showNotification('Failed to schedule task', 'error'));
-    console.error('Error scheduling task:', error);
   }
 };
