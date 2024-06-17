@@ -1,7 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'antd';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { 
+  BarChart, 
+  Bar, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  Legend, 
+  ResponsiveContainer } from 'recharts';
 
 const TasksByDepartmentBarChart = ({ data }) => {
   if (!data || data.length === 0) {

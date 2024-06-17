@@ -1,6 +1,10 @@
 import React from 'react';
 import { Card } from 'antd';
-import { ShoppingOutlined, CheckCircleOutlined, ClockCircleOutlined, UserOutlined } from '@ant-design/icons';
+import { 
+  ShoppingOutlined, 
+  CheckCircleOutlined, 
+  ClockCircleOutlined, 
+  UserOutlined } from '@ant-design/icons';
 
 const DashboardCard = ({ title, icon, value }) => (
   <Card

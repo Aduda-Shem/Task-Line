@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Row, Col, Breadcrumb } from 'antd';
 import { HomeOutlined } from '@ant-design/icons';
 
+// This is a re-usable breadcrujmb fro all the pages 
 const BreadcrumbComponent = (props) => {
   const navigate = useNavigate();
 

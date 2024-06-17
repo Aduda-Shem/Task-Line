@@ -25,7 +25,7 @@
 ### User Authentication
 
 1. **Sign Up**: Create a new account by providing your name, email, and password.
-2. **Login**: Access your account using your email and password.
+2. **Login**: Access your account using email and password(ZIP Code) from jsonplaceholder users.
 
 ### Role Management
 
@@ -45,7 +45,7 @@
 
 ### Persistent Data
 
-- Data is saved to localStorage to ensure it persists across page reloads.
+- Data is saved to localStorage & IndexedDB to ensure it persists across page reloads.
 
 ## Sample Views
 

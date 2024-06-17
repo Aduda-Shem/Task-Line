@@ -1,5 +1,3 @@
-// components/AddUserDrawer.js
-
 import React from 'react';
 import { Drawer, Button, Form, Input, Select } from 'antd';
 
@@ -25,19 +23,29 @@ const AddUserDrawer = ({ visible, onOk, onCancel, form }) => {
       }
     >
       <Form form={form} layout="vertical">
-        <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input the name!' }]}>
+        <Form.Item label="Name" name="name" rules={[{ 
+          required: true, 
+          message: 'Please input the name!' }]}>
           <Input />
         </Form.Item>
-        <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input the email!' }]}>
+        <Form.Item label="Email" name="email" rules={[{ 
+          required: true, 
+          message: 'Please input the email!' }]}>
           <Input />
         </Form.Item>
-        <Form.Item label="Username" name="username" rules={[{ required: true, message: 'Please input the username!' }]}>
+        <Form.Item label="Username" name="username" rules={[{ 
+          required: true, 
+          message: 'Please input the username!' }]}>
           <Input />
         </Form.Item>
-        <Form.Item label="Address" name="address" rules={[{ required: true, message: 'Please input the address!' }]}>
+        <Form.Item label="Address" name="address" rules={[{ 
+          required: true, 
+          message: 'Please input the address!' }]}>
           <Input />
         </Form.Item>
-        <Form.Item label="Role" name="role" rules={[{ required: true, message: 'Please select the role!' }]}>
+        <Form.Item label="Role" name="role" rules={[{ 
+          required: true, 
+          message: 'Please select the role!' }]}>
           <Select>
             <Option value="employee">Employee</Option>
             <Option value="manager">Manager</Option>

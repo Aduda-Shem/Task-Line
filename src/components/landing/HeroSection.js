@@ -1,9 +1,7 @@
-// components/HeroSection.js
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Typography, Button } from 'antd';
-import image1 from '../../images/image1.jpg';
+import image1 from '../../images/bg-ico-hero.jpg';
 
 const { Title, Paragraph } = Typography;
 
@@ -28,7 +26,7 @@ const HeroSection = () => (
       <Button type="primary" size="large" style={{ margin: '10px', fontWeight: '500' }}>
         <Link to="/login" style={{ color: 'white' }}>Login</Link>
       </Button>
-      <Button type="default" size="large" style={{ margin: '10px', fontWeight: '500' }}>
+      <Button type="primary" size="large" style={{ margin: '10px', fontWeight: '500' }}>
         <Link to="/signup" style={{ color: 'white' }}>Sign Up</Link>
       </Button>
     </div>

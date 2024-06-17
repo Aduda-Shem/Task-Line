@@ -1,6 +1,12 @@
 import React from 'react';
 import { Card } from 'antd';
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
+import { 
+  PieChart, 
+  Pie, 
+  Cell, 
+  Tooltip, 
+  ResponsiveContainer 
+} from 'recharts';
 
 const TaskCompletionPieChart = ({ data }) => {
   const COLORS = ['#0088FE', '#FFBB28'];

@@ -18,20 +18,20 @@ const UserManagement = () => {
   const [departmentForm] = Form.useForm();
   const [drawerForm] = Form.useForm();
 
-  // Handle editing user
+  // this is the function for editing user
   const handleEditUser = (user) => {
     setSelectedUser(user);
     userForm.setFieldsValue(user);
     setIsUserModalVisible(true);
   };
 
-  // Handle deleting user
+  //  this is the function for deleting user
   const handleDeleteUser = (userId) => {
     deleteUser(userId);
     message.success('User deleted successfully');
   };
 
-  // Handle updating user
+  //  this is the function for updating user
   const handleUserUpdate = () => {
     userForm.validateFields().then((values) => {
       updateUser({ ...selectedUser, ...values });
@@ -41,7 +41,7 @@ const UserManagement = () => {
     });
   };
 
-  // Handle adding new department
+  //  this is the function for adding new department
   const handleDepartmentAdd = () => {
     departmentForm.validateFields().then((values) => {
       addDepartment({ id: Date.now(), ...values });
@@ -51,7 +51,7 @@ const UserManagement = () => {
     });
   };
 
-  // Handle adding new user
+  //  this is the function for adding new user
   const handleUserAdd = () => {
     drawerForm.validateFields().then((values) => {
       addUser({ id: Date.now(), ...values });
@@ -62,9 +62,18 @@ const UserManagement = () => {
   };
 
   return (
-    <div style={{ padding: '10px', backgroundColor: '#f0f2f5', minHeight: '100vh', fontFamily: 'Roboto, sans-serif' }}>
+    <div style={{ 
+      padding: '10px', 
+      backgroundColor: '#f0f2f5', 
+      minHeight: '100vh', 
+      fontFamily: 'Roboto, sans-serif' }}>
       <Breadcrumb title="Home" breadcrumbItem="User Management" link="/dashboard" />
-      <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', marginBottom: '20px' }}>
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        flexWrap: 'wrap', 
+        marginBottom: '20px' 
+        }}>
         <Button
           type="primary"
           icon={<PlusOutlined />}
