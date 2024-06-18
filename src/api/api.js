@@ -9,5 +9,5 @@ export const fetchTasks = () => axios.get(`${API_URL}/todos`);
 export const sendEmail = (
     emailData) => axios.post(
         // sending email by triggering the send email functionality 
-        'http://localhost:5000/send-email', 
+        'https://task-line.vercel.app/send-email', 
         emailData);
