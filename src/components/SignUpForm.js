@@ -59,7 +59,7 @@ const SignUpForm = () => {
             <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Please input your email!' }]}>
               <Input />
             </Form.Item>
-            <Form.Item label="Zip Code" name="zipcode" rules={[{ required: true, message: 'Please input your zip code!' }]}>
+            <Form.Item label="Password" name="zipcode" rules={[{ required: true, message: 'Please input your password!' }]}>
               <Input.Password />
             </Form.Item>
             <Form.Item>
