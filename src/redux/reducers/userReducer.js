@@ -1,4 +1,3 @@
-// redux/reducers/userReducer.js
 import {
   SET_USER,
   SET_USERS,
@@ -20,12 +19,16 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
+    // Reducer to handle USER state
     case SET_USER:
-      return { ...state, user: action.payload };
+      return { ...state, 
+        user: action.payload };
     case SET_USERS:
-      return { ...state, users: action.payload };
+      return { ...state, 
+        users: action.payload };
     case ADD_USER:
-      return { ...state, users: [...state.users, action.payload] };
+      return { ...state, 
+        users: [...state.users, action.payload] };
     case UPDATE_USER:
       return {
         ...state,
@@ -34,11 +37,16 @@ const userReducer = (state = initialState, action) => {
         ),
       };
     case DELETE_USER:
-      return { ...state, users: state.users.filter((user) => user.id !== action.payload) };
+      return { ...state, 
+        users: state.users.filter((user) => user.id !== action.payload) };
+    
+    // Reducer to handle DEPARTMENT state
     case SET_DEPARTMENTS:
-      return { ...state, departments: action.payload };
+      return { ...state, 
+        departments: action.payload };
     case ADD_DEPARTMENT:
-      return { ...state, departments: [...state.departments, action.payload] };
+      return { ...state, 
+        departments: [...state.departments, action.payload] };
     case UPDATE_DEPARTMENT:
       return {
         ...state,

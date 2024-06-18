@@ -11,6 +11,7 @@ import NavigationBar from './components/NavigationBar';
 import ProtectedRoute from './components/ProtectedRoute';
 import { useAuth } from './hooks/useAuth';
 import { useLocation } from 'react-router-dom';
+import './index.css';
 
 const AppContent = () => {
   const { isAuthenticated } = useAuth();
@@ -27,7 +28,7 @@ const AppContent = () => {
         <Route path="/user_management" element={<ProtectedRoute element={UserManagement} />} />
         <Route path="/taskboard" element={<ProtectedRoute element={TaskBoard} />} />
         <Route path="/dashboard" element={<ProtectedRoute element={Dashboard} />} />
-        {/* Redirect any unknown routes to home */}
+        {/* Redirecting any unknown routes to / */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>

@@ -27,7 +27,7 @@ export const addTask = (task) => async (dispatch, getState) => {
     dispatch({ 
       type: ADD_TASK, payload: task });
   } catch (error) {
-    console.error('Error adding task:', error);
+    // console.error('Error addin:', error);
   }
 };
 

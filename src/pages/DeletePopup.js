@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Modal, Button } from 'antd';
 import { DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 
+// this is a reusable delete pop up card confiramtion for every delete buttton 
 const DeletePopup = ({ onConfirm }) => {
   const [visible, setVisible] = useState(false);
 

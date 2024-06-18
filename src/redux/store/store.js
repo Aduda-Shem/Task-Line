@@ -24,14 +24,15 @@ const saveState = (state) => {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('state', serializedState);
   } catch (err) {
-    // Ignore write errors
   }
 };
 
+// this functions fetches data from jsn place holders and populates users and tasks in IndexDB
 const fetchAndPopulateDB = async () => {
   const users = await getUsersFromDB();
   const tasks = await getTasksFromDB();
 
+  // if no user , it triggers the fetch for users
   if (users.length === 0) {
     const userResponse = await fetchUsersAPI();
     for (const user of userResponse.data) {
@@ -39,6 +40,7 @@ const fetchAndPopulateDB = async () => {
     }
   }
 
+  // if no tasks, it triggers the fetch for tasks
   if (tasks.length === 0) {
     const taskResponse = await fetchTasksAPI();
     for (const task of taskResponse.data) {

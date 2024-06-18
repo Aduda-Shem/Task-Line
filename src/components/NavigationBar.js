@@ -1,12 +1,18 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, Button } from 'antd';
-import { DashboardOutlined, UserOutlined, UnorderedListOutlined, LogoutOutlined } from '@ant-design/icons';
+import { 
+  DashboardOutlined, 
+  UserOutlined, 
+  UnorderedListOutlined, 
+  LogoutOutlined } from '@ant-design/icons';
 
 const NavigationBar = () => {
+  // checking if user is authenticated
   const isAuthenticated = Boolean(localStorage.getItem('user'));
   const navigate = useNavigate();
 
+  // function to handle logout by clearing the logged on user in state
   const handleLogout = () => {
     localStorage.removeItem('user');
     navigate('/login');
@@ -15,6 +21,7 @@ const NavigationBar = () => {
 
   const items = isAuthenticated
     ? [
+      // links to display to authenticated users
         { label: <Link to="/dashboard"><DashboardOutlined /> Dashboard</Link>, key: 'dashboard' },
         { label: <Link to="/user_management"><UserOutlined /> User Management</Link>, key: 'usermanagement' },
         { label: <Link to="/taskboard"><UnorderedListOutlined /> Task Board</Link>, key: 'taskboard' },

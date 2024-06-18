@@ -25,7 +25,7 @@ const SignUpForm = () => {
         address: { zipcode: values.zipcode } 
       };
 
-      // Save user info to IndexedDB
+      // here, we save user info to IndexedDB
       await addUserToDB(user);
 
       // Dispatch action to set user in Redux store
@@ -33,18 +33,22 @@ const SignUpForm = () => {
 
       // Show notification and redirect
       dispatch(showNotification('Signed up successfully', 'success'));
+      // Redirects user to dashboard after suuccessful sign in 
       navigate('/dashboard');
       window.location.reload();
     } catch (error) {
       message.error('Sign-up failed. Please try again.');
-      console.error('Sign-up error:', error);
+      // console.error('Sign-up error:', error);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Row justify="center" align="middle" style={{ minHeight: '100vh', backgroundColor: '#f0f2f5' }}>
+    <Row justify="center" align="middle" style={{ 
+      minHeight: '100vh', 
+      backgroundColor: '#f0f2f5' 
+      }}>
       <Col xs={24} sm={16} md={12} lg={8} xl={6}>
         <div style={{ padding: '40px', background: 'white', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)' }}>
           <Title level={2} style={{ textAlign: 'center', marginBottom: '20px' }}>Sign Up</Title>

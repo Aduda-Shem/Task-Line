@@ -47,7 +47,6 @@ export const fetchUsers = () => async (dispatch) => {
     }
   } catch (error) {
     dispatch(showNotification('Failed to fetch users', 'error'));
-    console.error('Error fetching users:', error);
   }
 };
 
@@ -56,7 +55,7 @@ export const addUser = (user) => async (dispatch, getState) => {
     await addUserToDB(user);
     dispatch({ type: ADD_USER, payload: user });
   } catch (error) {
-    console.error('Error adding user:', error);
+    // console.error('Error adding user:', error);
   }
 };
 
@@ -65,7 +64,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
     await updateUserInDB(user);
     dispatch({ type: UPDATE_USER, payload: user });
   } catch (error) {
-    console.error('Error updating user:', error);
+    // console.error('Error updating user:', error);
   }
 };
 
@@ -74,7 +73,7 @@ export const deleteUser = (userId) => async (dispatch, getState) => {
     await deleteUserFromDB(userId);
     dispatch({ type: DELETE_USER, payload: userId });
   } catch (error) {
-    console.error('Error deleting user:', error);
+    // console.error('Error deleting user:', error);
   }
 };
 
@@ -88,7 +87,7 @@ export const fetchDepartments = () => async (dispatch) => {
     dispatch(setDepartments(departments));
   } catch (error) {
     dispatch(showNotification('Failed to fetch departments', 'error'));
-    console.error('Error fetching departments:', error);
+    // console.error('Error fetching :', error);
   }
 };
 
@@ -97,7 +96,7 @@ export const addDepartment = (department) => async (dispatch, getState) => {
     await addDepartmentToDB(department);
     dispatch({ type: ADD_DEPARTMENT, payload: department });
   } catch (error) {
-    console.error('Error adding department:', error);
+    // console.error('Error adding department:', error);
   }
 };
 
@@ -106,7 +105,7 @@ export const updateDepartment = (department) => async (dispatch, getState) => {
     await updateDepartmentInDB(department);
     dispatch({ type: UPDATE_DEPARTMENT, payload: department });
   } catch (error) {
-    console.error('Error updating department:', error);
+    // console.error('Error updating department:', error);
   }
 };
 
@@ -115,7 +114,7 @@ export const deleteDepartment = (departmentId) => async (dispatch, getState) => 
     await deleteDepartmentFromDB(departmentId);
     dispatch({ type: DELETE_DEPARTMENT, payload: departmentId });
   } catch (error) {
-    console.error('Error deleting department:', error);
+    // console.error('Error deleting department:', error);
   }
 };
 
@@ -130,7 +129,6 @@ export const moveEmployee = (userId, departmentId) => async (dispatch, getState)
       dispatch(setUsers(users.map(u => u.id === userId ? updatedUser : u)));
     }
   } catch (error) {
-    console.error('Error moving employee:', error);
   }
 };
 
@@ -139,6 +137,6 @@ export const removeEmployee = (userId) => async (dispatch, getState) => {
     await deleteUserFromDB(userId);
     dispatch({ type: REMOVE_EMPLOYEE, payload: userId });
   } catch (error) {
-    console.error('Error removing employee:', error);
+    // console.error('Error removing employee:', error);
   }
 };

@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 
-// Destructure Header from Layout
 const { Header } = Layout;
 
 const HeaderComponent = () => (

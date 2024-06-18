@@ -1,5 +1,3 @@
-// components/FAQSection.js
-
 import React from 'react';
 import { Collapse, Typography, Row, Col } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
@@ -7,22 +5,32 @@ import { QuestionCircleOutlined } from '@ant-design/icons';
 const { Title, Paragraph } = Typography;
 const { Panel } = Collapse;
 
+// Data to populate the FAQ section
 const faqData = [
   { question: 'What services do you offer?', answer: 'We offer a wide range of services including task management, department management, and employee management.' },
-  { question: 'How can I contact you?', answer: 'You can contact us via email at info@company.com or call us at (123) 456-7890.' },
+  { question: 'How can I contact you?', answer: 'You can contact us via email at info@granhm.com or call us at 1234567890.' },
   { question: 'What are your pricing plans?', answer: 'We offer three pricing plans: Basic ($10/month), Standard ($20/month), and Premium ($30/month).' },
 ];
 
 const FAQSection = () => (
   <>
-    <Title level={2} style={{ marginBottom: '40px', fontWeight: '700', textAlign: 'center' }}>Frequently Asked Questions</Title>
+    <Title level={2} style={{ 
+      marginBottom: '40px', 
+      fontWeight: '700', 
+      textAlign: 'center' }}>
+        Frequently Asked Questions
+    </Title>
     <Row justify="center">
       <Col xs={24} sm={20} md={16} lg={12}>
         <Collapse accordion bordered={false} defaultActiveKey={['0']}>
           {faqData.map((faq, index) => (
             <Panel
               header={
-                <span style={{ fontWeight: '600', fontSize: '16px', display: 'flex', alignItems: 'center' }}>
+                <span style={{ 
+                  fontWeight: '600', 
+                  fontSize: '16px', 
+                  display: 'flex', 
+                  alignItems: 'center' }}>
                   <QuestionCircleOutlined style={{ marginRight: '8px', color: '#08c' }} />
                   {faq.question}
                 </span>

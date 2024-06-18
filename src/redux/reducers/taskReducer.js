@@ -13,6 +13,7 @@ const initialState = {
 
 const taskReducer = (state = initialState, action) => {
   switch (action.type) {
+    // Reducer to handle State Management for tasks
     case SET_TASKS:
       return { ...state, tasks: action.payload };
     case ADD_TASK:

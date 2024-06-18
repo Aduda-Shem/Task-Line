@@ -42,21 +42,28 @@ const LoginForm = () => {
         localStorage.setItem('user', JSON.stringify(userData));
         dispatch(setUser(userData));
         message.success('Login successful');
+        // here, navigates to dashbard after success
         navigate('/dashboard');
         window.location.reload(); 
       } else {
+
         message.error('Invalid email or password');
       }
     } catch (error) {
       message.error('Login failed. Please try again.');
-      console.error('Login error:', error);
+      // console.error('Login error:', error);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Row justify="center" align="middle" style={{ minHeight: '100vh', backgroundColor: '#f0f2f5', fontFamily: 'Roboto, sans-serif' }}>
+    <Row justify="center" align="middle" style={{ 
+      minHeight: '100vh', 
+      backgroundColor: '#f0f2f5', 
+      fontFamily: 'Roboto, sans-serif' 
+      }}>
+        {/* to handle responsiveness in different devices */}
       <Col xs={24} sm={16} md={12} lg={8} xl={6}>
         <ToastNotification />
         <div style={{ padding: '40px', background: 'white', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)' }}>

@@ -1,5 +1,3 @@
-// components/DepartmentModal.js
-
 import React from 'react';
 import { Modal, Form, Input } from 'antd';
 

@@ -16,7 +16,7 @@ const FooterComponent = () => (
         <Title level={4} style={{ color: 'white', fontWeight: '700' }}>Contact Us</Title>
         <Paragraph style={{ color: 'rgba(255, 255, 255, 0.65)', fontWeight: '500' }}>
           Email: info@granhm.com <br />
-          Phone: (123) 456-7890
+          Phone: 1234567890
         </Paragraph>
       </Col>
       <Col span={8}>

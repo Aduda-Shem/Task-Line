@@ -84,11 +84,18 @@ const TaskList = ({ view, filter }) => {
     <Card
       title={<div>{view === 'list' ? 'Task List' : 'Task Board'}</div>}
       extra={<Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalVisible(true)}>Add Task</Button>}
+      className="task-card"
     >
       {view === 'list' ? (
-        <TaskTable tasks={filteredTasks} users={users} handleEditTask={handleEditTask} handleDeleteTask={handleDeleteTask} handleCompleteTask={handleCompleteTask} />
+        <TaskTable
+          tasks={filteredTasks}
+          users={users}
+          handleEditTask={handleEditTask}
+          handleDeleteTask={handleDeleteTask}
+          handleCompleteTask={handleCompleteTask}
+        />
       ) : (
-        <div style={{ maxHeight: '780px', overflowY: 'auto', overflowX: 'hidden' }}>
+        <div className="task-task-board">
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="tasks" direction="vertical">
               {(provided) => (
@@ -124,7 +131,13 @@ const TaskList = ({ view, filter }) => {
           </DragDropContext>
         </div>
       )}
-      <TaskModal isModalVisible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel} form={form} users={users} />
+      <TaskModal
+        isModalVisible={isModalVisible}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+        form={form}
+        users={users}
+      />
     </Card>
   );
 };
