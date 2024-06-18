@@ -110,22 +110,7 @@ code {
   }
 }
 
-.task-card {
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
-  background-color: #ffffff;
-  box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
-  padding: 1.25rem;
-  margin-bottom: 1.5rem;
-}
 
-.task-task-board {
-  max-height: 780px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 20px;
-  background-color: #f0f2f5;
-}
 
 .ant-btn-primary {
   background-color: #556ee6;
