@@ -1,4 +1,3 @@
-// redux/actions/userActions.js
 import {
   SET_USER,
   SET_USERS,
