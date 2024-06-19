@@ -13,26 +13,31 @@ const TaskCard = ({ task, users, handleEditTask, handleDeleteTask, handleComplet
         style={{
           marginBottom: '40px',
           background: '#ffffff',
-          height: '200px',
-          width:'520px',
+          width: '500px',
           display: 'flex',
           flexDirection: 'column',
         }}
         actions={[
-            <EditOutlined key="edit" onClick={() => handleEditTask(task)} />,
-            <DeletePopup key="delete" onConfirm={() => handleDeleteTask(task.id)} />, // Use DeletePopup here
-            !task.completed && <CheckOutlined key="complete" onClick={() => handleCompleteTask(task.id)} />,
-          ]}
-        >
-          <div style={{ flex: 1 }}>
-            <p style={{ marginBottom: '8px', fontWeight: 'bold', fontSize: '16px' }}>User: {userName}</p>
-            <Tag color={task.completed ? 'green' : 'red'} style={{ alignSelf: 'flex-start' }}>
-              {task.completed ? 'Completed' : 'Pending'}
-            </Tag>
-          </div>
-        </Card>
-      </Col>
-    );
-  };
-  
-  export default TaskCard;
+          <EditOutlined key="edit" onClick={() => handleEditTask(task)} />,
+          <DeletePopup key="delete" onConfirm={() => handleDeleteTask(task.id)} />,
+          !task.completed && <CheckOutlined key="complete" onClick={() => handleCompleteTask(task.id)} />,
+        ]}
+      >
+        <div style={{ overflowY: 'auto', paddingRight: '10px' }}>
+          <p style={{ 
+            marginBottom: '8px', 
+            fontWeight: 'bold', 
+            fontSize: '16px' }}
+            >User: {userName}
+          </p>
+          <Tag color={task.completed ? 'green' : 'red'} 
+          style={{ alignSelf: 'flex-start' }}>
+            {task.completed ? 'Completed' : 'Pending'}
+          </Tag>
+        </div>
+      </Card>
+    </Col>
+  );
+};
+
+export default TaskCard;

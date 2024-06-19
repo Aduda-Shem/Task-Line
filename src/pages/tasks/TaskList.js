@@ -82,8 +82,18 @@ const TaskList = ({ view, filter }) => {
 
   return (
     <Card
-      title={<div>{view === 'list' ? 'Task List' : 'Task Board'}</div>}
-      extra={<Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalVisible(true)}>Add Task</Button>}
+      title={
+      <div>
+        {view === 'list' ? 'Task List' : 'Task Board'
+        }</div>}
+      extra=
+      {
+      <Button type="primary" 
+        icon={<PlusOutlined />} 
+        onClick={() => setIsModalVisible(true)}
+        >Add Task
+        </Button>
+        }
       className="task-card"
     >
       {view === 'list' ? (
@@ -104,10 +114,7 @@ const TaskList = ({ view, filter }) => {
                     {filteredTasks.map((task, index) => (
                       <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
                         {(provided) => (
-                          <Col
-                            xs={24}
-                            sm={12}
-                            md={8}
+                          <Col xs={24}  sm={12}  md={8}
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
