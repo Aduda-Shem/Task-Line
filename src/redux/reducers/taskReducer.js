@@ -15,9 +15,11 @@ const taskReducer = (state = initialState, action) => {
   switch (action.type) {
     // Reducer to handle State Management for tasks
     case SET_TASKS:
-      return { ...state, tasks: action.payload };
+      return { ...state, 
+        tasks: action.payload };
     case ADD_TASK:
-      return { ...state, tasks: [...state.tasks, action.payload] };
+      return { ...state, 
+        tasks: [...state.tasks, action.payload] };
     case UPDATE_TASK:
       return {
         ...state,
@@ -26,9 +28,11 @@ const taskReducer = (state = initialState, action) => {
         ),
       };
     case DELETE_TASK:
-      return { ...state, tasks: state.tasks.filter(task => task.id !== action.payload) };
+      return { ...state, 
+        tasks: state.tasks.filter(task => task.id !== action.payload) };
     case UPDATE_TASK_ORDER:
-      return { ...state, tasks: action.payload };
+      return { ...state, 
+        tasks: action.payload };
     case MARK_TASK_COMPLETE:
       return {
         ...state,

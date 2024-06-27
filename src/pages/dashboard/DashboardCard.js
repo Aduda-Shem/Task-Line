@@ -30,21 +30,41 @@ const iconComponents = {
 };
 
 export const TaskCard = ({ title, value }) => (
-  <DashboardCard title={title} icon={iconComponents[title.toLowerCase()]} value={value} />
+  <DashboardCard 
+     title={title} 
+     icon={iconComponents[title.toLowerCase()]} 
+     value={value} 
+     />
 );
 
 export const TotalTasksCard = ({ value }) => (
-  <DashboardCard title="Total Tasks" icon={iconComponents.total} value={value} />
+  <DashboardCard 
+      title="Total 
+      Tasks" icon={iconComponents.total} 
+      value={value} 
+      />
 );
 
 export const CompletedTasksCard = ({ value }) => (
-  <DashboardCard title="Completed Tasks" icon={iconComponents.completed} value={value} />
+  <DashboardCard 
+      title="Completed Tasks" 
+      icon={iconComponents.completed} 
+      value={value} 
+      />
 );
 
 export const PendingTasksCard = ({ value }) => (
-  <DashboardCard title="Pending Tasks" icon={iconComponents.pending} value={value} />
+  <DashboardCard 
+    title="Pending Tasks" 
+    icon={iconComponents.pending} 
+    value={value} 
+    />
 );
 
 export const TotalEmployeesCard = ({ value }) => (
-  <DashboardCard title="Total Employees" icon={iconComponents.employees} value={value} />
+  <DashboardCard 
+    title="Total Employees" 
+    icon={iconComponents.employees} 
+    value={value} 
+    />
 );

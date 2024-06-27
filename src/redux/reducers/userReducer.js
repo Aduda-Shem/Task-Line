@@ -55,9 +55,11 @@ const userReducer = (state = initialState, action) => {
         ),
       };
     case DELETE_DEPARTMENT:
-      return { ...state, departments: state.departments.filter((dept) => dept.id !== action.payload) };
+      return { ...state, 
+        departments: state.departments.filter((dept) => dept.id !== action.payload) };
     case REMOVE_EMPLOYEE:
-      return { ...state, users: state.users.filter((user) => user.id !== action.payload) };
+      return { ...state, 
+        users: state.users.filter((user) => user.id !== action.payload) };
     default:
       return state;
   }
